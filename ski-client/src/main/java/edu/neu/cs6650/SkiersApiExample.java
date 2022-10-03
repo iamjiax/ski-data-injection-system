@@ -3,6 +3,7 @@ package edu.neu.cs6650;
 import static edu.neu.cs6650.Constants.*;
 
 import edu.neu.cs6650.model.LiftRideData;
+import edu.neu.cs6650.util.LiftRideGenerator;
 import io.swagger.client.*;
 import io.swagger.client.api.SkiersApi;
 
@@ -35,16 +36,11 @@ public class SkiersApiExample {
 
     long end = System.currentTimeMillis();
     System.out.println("Total run time: " + (end - start) + " ms");
-    long latency = (end - start) / TEST_NUM;
+    int latency = (int) ((end - start) / TEST_NUM);
     System.out.println("Average latency: " + latency + " ms");
     int throughput32 = (int) (32 / ((float)latency / 1000));
     System.out.println("Expected throughput for 32 threads: " + throughput32);
     int throughput200 = (int) (200 / ((float)latency / 1000));
     System.out.println("Expected throughput for 200 threads: " + throughput200);
-
-//    Total run time: 164820 ms
-//    Average latency: 16 ms
-//    Expected throughput for 32 threads: 1999
-//    Expected throughput for 200 threads: 12499
   }
 }

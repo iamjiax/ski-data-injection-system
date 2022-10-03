@@ -1,4 +1,4 @@
-package edu.neu.cs6650;
+package edu.neu.cs6650.util;
 
 import static edu.neu.cs6650.Constants.*;
 
@@ -65,7 +65,7 @@ public class UrlPathParser {
 
 
   private void validateSkiersLongUrl(String[] urlParts)
-      throws InvalidUrlException, MissingPathParametersException {
+      throws InvalidUrlException {
     final int LEN_PARTS = 8;
     if (urlParts.length != LEN_PARTS) {
       throw new InvalidUrlException(MSG_INVALID_PATH_PARA);

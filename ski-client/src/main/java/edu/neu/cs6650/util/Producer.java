@@ -1,6 +1,7 @@
-package edu.neu.cs6650;
+package edu.neu.cs6650.util;
 
 import edu.neu.cs6650.model.LiftRideData;
+import edu.neu.cs6650.util.LiftRideGenerator;
 import java.util.concurrent.BlockingQueue;
 
 public class Producer implements Runnable {
