@@ -41,13 +41,10 @@ public class SkiersApiExample {
     System.out.println("Expected throughput for 32 threads: " + throughput32);
     int throughput200 = (int) (200 / ((float)latency / 1000));
     System.out.println("Expected throughput for 200 threads: " + throughput200);
-    int throughputAve = (throughput32 + throughput200) / 2;
-    System.out.println("Expected average Throughput: " + throughputAve);
 
 //    Total run time: 164820 ms
 //    Average latency: 16 ms
 //    Expected throughput for 32 threads: 1999
 //    Expected throughput for 200 threads: 12499
-//    Expected average Throughput: 7249
   }
 }

@@ -2,7 +2,7 @@ package edu.neu.cs6650;
 
 public class Constants {
   // Paths
-  public static final String SERVER_IP = "52.26.122.122";
+  public static final String SERVER_IP = "34.211.157.159";
   public static final String SERVER_PATH = "http://" + SERVER_IP + "/ski-server_war";
   public static final String LOCAL_SERVER_PATH = "http://localhost:8080/ski-server_war_exploded";
   // ID range
@@ -20,7 +20,7 @@ public class Constants {
   public static final int TOTAL_COUNT = 200000;
   public static final int P1_THREAD_NUM = 32;
   public static final int P1_CNT_PER_THREAD = 1000;
-  public static final int P2_THREAD_NUM = 220;
+  public static final int P2_THREAD_NUM = 32;
   public static final int BQ_CAPACITY = P2_THREAD_NUM;
 
   public static final int MAX_RETRY_TIMES = 5;

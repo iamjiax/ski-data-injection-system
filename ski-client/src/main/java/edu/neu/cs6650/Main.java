@@ -66,6 +66,7 @@ public class Main {
 
     // Information for Phase 2
     System.out.println("\nRequests for Phase 2: " + p2Count.get());
+    System.out.println("Threads count for Phase 2: " + P2_THREAD_NUM);
     System.out.println("Run time for Phase 2: " + (end - startP2) + " ms");
     int throughputP2 = (int) (p2Count.get() / (float)(end - startP2) * 1000);
     System.out.println("Throughput for Phase 2: " + throughputP2 + " /s");
