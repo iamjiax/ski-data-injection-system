@@ -84,7 +84,7 @@ public class Sender implements Runnable {
         // return when write successfully
         return;
       } catch (ApiException e) {
-        System.err.println(e.getCode() + ": " + e.getMessage());
+        System.err.println(e.getCode() + ": " + e.getResponseBody());
         if (e.getCode() >= ERROR_CODE_LOWER_BOUND && e.getCode() < ERROR_CODE_UPPER_BOUND) {
           retryTimes++;
           System.err.println("Retry time: " + retryTimes);

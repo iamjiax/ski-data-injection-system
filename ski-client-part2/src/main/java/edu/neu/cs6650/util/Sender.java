@@ -96,7 +96,7 @@ public class Sender implements Runnable {
         return;
 
       } catch (ApiException e) {
-        System.err.println(e.getCode() + ": " + e.getMessage());
+        System.err.println(e.getCode() + ": " + e.getResponseBody());
         if (e.getCode() >= ERROR_CODE_LOWER_BOUND && e.getCode() < ERROR_CODE_UPPER_BOUND) {
 
           long end = System.currentTimeMillis();
