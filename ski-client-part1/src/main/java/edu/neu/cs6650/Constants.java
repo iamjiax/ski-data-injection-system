@@ -2,9 +2,11 @@ package edu.neu.cs6650;
 
 public class Constants {
   // Paths
-  public static final String SERVER_IP = "52.32.209.195";
+  public static final String SERVER_IP = "34.217.122.2";
   public static final String SERVER_PATH = "http://" + SERVER_IP + "/ski-server_war";
-  public static final String LOCAL_SERVER_PATH = "http://localhost:8080/ski-server_war_exploded";
+  public static final String SERVER_PATH_SPRING = "http://" + SERVER_IP + "/ski-server-spring_war";
+  public static final String SERVER_PATH_LOCAL = "http://localhost:8080/ski-server_war_exploded";
+  public static final String SERVER_PATH_LOCAL_SPRING = "http://localhost:8080/ski-server-spring_war_exploded";
   // ID range
   public static final int SKIER_ID_MIN = 1;
   public static final int SKIER_ID_MAX = 100000;
@@ -20,7 +22,7 @@ public class Constants {
   public static final int TOTAL_COUNT = 200000;
   public static final int P1_THREAD_NUM = 32;
   public static final int P1_CNT_PER_THREAD = 1000;
-  public static final int P2_THREAD_NUM = 200;
+  public static final int P2_THREAD_NUM = 168;
   public static final int BQ_CAPACITY = P2_THREAD_NUM;
 
   public static final int MAX_RETRY_TIMES = 5;

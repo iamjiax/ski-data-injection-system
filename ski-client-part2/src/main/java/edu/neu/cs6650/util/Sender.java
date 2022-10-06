@@ -24,14 +24,14 @@ public class Sender implements Runnable {
 
   public Sender(
       BlockingQueue<LiftRideData> producerQueue,
-      String server_path,
+      String serverPath,
       int countToSend,
       AtomicInteger curCount,
       AtomicInteger failCount,
       CountDownLatch doneSignal,
       BlockingQueue<RecordData> recordQueue) {
     this.producerQueue = producerQueue;
-    this.skiersApi = new SkiersApi(new ApiClient().setBasePath(server_path));
+    this.skiersApi = new SkiersApi(new ApiClient().setBasePath(serverPath));
     this.countToSend = countToSend;
     this.curCount = curCount;
     this.failCount = failCount;

@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main {
 
   public static void main(String[] args) throws InterruptedException {
+    String serverPath = SERVER_PATH;
     BlockingQueue<LiftRideData> bq = new LinkedBlockingQueue<>(BQ_CAPACITY);
     Producer producer = new Producer(bq, TOTAL_COUNT);
 
@@ -33,7 +34,7 @@ public class Main {
       AtomicInteger curCount = new AtomicInteger();
       new Thread(new Sender(
           bq,
-          SERVER_PATH,
+          serverPath,
           P1_CNT_PER_THREAD,
           curCount,
           failCount,
@@ -48,7 +49,7 @@ public class Main {
     for (int i = 0; i < P2_THREAD_NUM; i++) {
       new Thread(new Sender(
           bq,
-          SERVER_PATH,
+          serverPath,
           p2CountToSend,
           p2Count,
           failCount,
