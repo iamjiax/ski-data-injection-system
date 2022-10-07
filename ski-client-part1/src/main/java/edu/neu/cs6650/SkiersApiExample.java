@@ -39,8 +39,8 @@ public class SkiersApiExample {
     long latency = (end - start) / TEST_NUM;
     System.out.println("Average latency: " + latency + " ms");
     int throughput32 = (int) (32 / ((float)latency / 1000));
-    System.out.println("Expected throughput for 32 threads: " + throughput32);
+    System.out.println("Expected throughput for 32 threads: " + throughput32 + " /s");
     int throughput200 = (int) (200 / ((float)latency / 1000));
-    System.out.println("Expected throughput for 200 threads: " + throughput200);
+    System.out.println("Expected throughput for 200 threads: " + throughput200 + " /s");
   }
 }
