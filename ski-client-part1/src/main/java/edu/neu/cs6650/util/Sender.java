@@ -78,8 +78,8 @@ public class Sender implements Runnable {
         skiersApi.writeNewLiftRide(
             liftRideData.getLiftRide(),
             liftRideData.getResortID(),
-            String.valueOf(liftRideData.getSeasonID()),
-            String.valueOf(liftRideData.getDayID()),
+            liftRideData.getSeasonID(),
+            liftRideData.getDayID(),
             liftRideData.getSkierID());
         // return when write successfully
         return;

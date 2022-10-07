@@ -15,8 +15,8 @@ public class Constants {
   public static final int RESORT_ID_MAX = 10;
   public static final int LIFT_ID_MIN = 1;
   public static final int LIFT_ID_MAX = 40;
-  public static final int SEASON_ID = 2022;
-  public static final int DAY_ID = 1;
+  public static final String SEASON_ID = "2022";
+  public static final String DAY_ID = "1";
   public static final int TIME_MIN = 1;
   public static final int TIME_MAX = 360;
   // Requests and Threads

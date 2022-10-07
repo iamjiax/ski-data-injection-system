@@ -9,8 +9,8 @@ public class LiftRideData {
 
   private LiftRide liftRide;
   private int resortID;
-  private int seasonID;
-  private int dayID;
+  private String seasonID;
+  private String dayID;
   private int skierID;
 
   private LiftRideData(LiftRideDataBuilder builder) {
@@ -29,11 +29,11 @@ public class LiftRideData {
     return this.resortID;
   }
 
-  public int getSeasonID() {
+  public String getSeasonID() {
     return this.seasonID;
   }
 
-  public int getDayID() {
+  public String getDayID() {
     return this.dayID;
   }
 
@@ -45,8 +45,8 @@ public class LiftRideData {
 
     private LiftRide liftRide;
     private int resortID;
-    private int seasonID;
-    private int dayID;
+    private String seasonID;
+    private String dayID;
     private int skierID;
 
     public LiftRideDataBuilder(int liftID, int time) {
@@ -60,13 +60,13 @@ public class LiftRideData {
       return this;
     }
 
-    public LiftRideDataBuilder seasonID(int seasonID) {
-      this.seasonID = seasonID;
+    public LiftRideDataBuilder seasonID(String seasonID) {
+      this.seasonID = String.valueOf(seasonID);
       return this;
     }
 
-    public LiftRideDataBuilder dayID(int dayID) {
-      this.dayID = dayID;
+    public LiftRideDataBuilder dayID(String dayID) {
+      this.dayID = String.valueOf(dayID);
       return this;
     }
 
