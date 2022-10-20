@@ -2,6 +2,7 @@ package edu.neu.cs6650.util;
 
 import static edu.neu.cs6650.util.Constants.*;
 
+import edu.neu.cs6650.exceptions.InvalidInputsException;
 import edu.neu.cs6650.exceptions.InvalidUrlException;
 import edu.neu.cs6650.exceptions.MissingPathParametersException;
 import javax.servlet.http.HttpServletRequest;
@@ -85,12 +86,16 @@ public class UrlPathParser {
       throw new InvalidUrlException(MSG_INVALID_PATH_PARA);
     }
 
-    this.resortID = Validator.validateID(urlParts[IDX_RESORT_ID], RESORT_ID_MIN, RESORT_ID_MAX);
-    this.seasonID = String.valueOf(
-        Validator.validateID(urlParts[IDX_SEASON_ID], SEASON_ID_MIN, SEASON_ID_MAX));
-    this.dayID = String.valueOf(
-        Validator.validateID(urlParts[IDX_DAY_ID], DAY_ID_MIN, DAY_ID_MAX));
-    this.skierID = Validator.validateID(urlParts[IDX_SKIER_ID], SKIER_ID_MIN, SKIER_ID_MAX);
+    try {
+      this.resortID = Validator.validateID(urlParts[IDX_RESORT_ID], RESORT_ID_MIN, RESORT_ID_MAX);
+      this.seasonID = String.valueOf(
+          Validator.validateID(urlParts[IDX_SEASON_ID], SEASON_ID_MIN, SEASON_ID_MAX));
+      this.dayID = String.valueOf(
+          Validator.validateID(urlParts[IDX_DAY_ID], DAY_ID_MIN, DAY_ID_MAX));
+      this.skierID = Validator.validateID(urlParts[IDX_SKIER_ID], SKIER_ID_MIN, SKIER_ID_MAX);
+    } catch (InvalidInputsException e) {
+      throw new InvalidUrlException(MSG_INVALID_PATH_PARA);
+    }
   }
 
   public int getResortID() {

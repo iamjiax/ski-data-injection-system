@@ -1,8 +1,5 @@
 package edu.neu.cs6650.model;
 
-import static edu.neu.cs6650.util.Constants.*;
-
-import edu.neu.cs6650.exceptions.InvalidInputsException;
 import java.util.Objects;
 
 public class LiftRideData {
@@ -42,16 +39,17 @@ public class LiftRideData {
   }
 
   public static class LiftRideDataBuilder {
+
     private LiftRide liftRide;
     private int resortID;
     private String seasonID;
     private String dayID;
     private int skierID;
 
-    public LiftRideDataBuilder(int liftID, int time) throws InvalidInputsException {
-      this.liftRide = new LiftRide(validate(liftID, LIFT_ID_MIN, LIFT_ID_MAX),
-          validate(time, TIME_MIN, TIME_MAX));
+    public LiftRideDataBuilder(int liftID, int time) {
+      this.liftRide = new LiftRide(liftID, time);
     }
+
     public LiftRideDataBuilder resortID(int resortID) {
       this.resortID = resortID;
       return this;
@@ -76,12 +74,6 @@ public class LiftRideData {
       return new LiftRideData(this);
     }
 
-    private int validate(int value, int minValue, int maxValue) throws InvalidInputsException {
-      if (value < minValue || value > maxValue) {
-        throw new InvalidInputsException(MSG_INVALID_INPUTS);
-      }
-      return value;
-    }
   }
 
   @Override

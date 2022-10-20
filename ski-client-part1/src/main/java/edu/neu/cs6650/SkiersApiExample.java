@@ -9,12 +9,12 @@ import io.swagger.client.api.SkiersApi;
 
 public class SkiersApiExample {
 
-  private static final int TEST_NUM = 10000;
+  private static final int TEST_NUM = 5;
 
   public static void main(String[] args) {
 
     ApiClient apiClient = new ApiClient();
-    apiClient.setBasePath(SERVER_PATH);
+    apiClient.setBasePath(SERVER_PATH_LOCAL);
     SkiersApi skiersApi = new SkiersApi(apiClient);
     long start = System.currentTimeMillis();
 

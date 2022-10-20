@@ -33,4 +33,10 @@ public class Constants {
   public static final int DAY_ID_MAX = 1;
   public static final int TIME_MIN = 1;
   public static final int TIME_MAX = 360;
+  // rabbitmq uri
+  public static final String MQ_URI = "amqp://user:user@35.93.76.13:5672";
+  public static final String MQ_URI_LOCAL = "amqp://guest:guest@localhost:5672";
+  public static final String ERROR_MQ_CONNECTION = "Error connecting to rabbitmq broker";
+  public static final String ERROR_MQ_TIMEOUT = "Error connecting to rabbitmq broker";
+  public static final String QUEUE_NAME = "liftRideQueue";
 }

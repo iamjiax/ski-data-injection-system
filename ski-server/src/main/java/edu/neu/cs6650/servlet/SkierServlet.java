@@ -4,24 +4,41 @@ import static edu.neu.cs6650.util.Constants.*;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import edu.neu.cs6650.exceptions.InvalidInputsException;
-import edu.neu.cs6650.model.LiftRide;
-import edu.neu.cs6650.model.LiftRideData;
 
-import edu.neu.cs6650.model.LiftRideData.LiftRideDataBuilder;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import edu.neu.cs6650.util.UrlPathParser;
-import edu.neu.cs6650.exceptions.InvalidUrlException;
-import edu.neu.cs6650.exceptions.MissingPathParametersException;
+
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
+
+import edu.neu.cs6650.util.*;
+import edu.neu.cs6650.exceptions.*;
+import edu.neu.cs6650.model.*;
+import edu.neu.cs6650.model.LiftRideData.LiftRideDataBuilder;
 
 @WebServlet(name = "SkierServlet", value = "/skiers/*")
 public class SkierServlet extends HttpServlet {
 
-  private Gson gson = new Gson();
+  protected ConnectionFactory factory;
+  protected Connection connection;
+  protected Gson gson;
+
+  @Override
+  public void init() throws ServletException {
+    factory = new ConnectionFactory();
+    try {
+      factory.setUri(MQ_URI);
+      connection = factory.newConnection();
+    } catch (Exception e) {
+      throw new ServletException(ERROR_MQ_CONNECTION, e);
+    }
+    gson = new Gson();
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -57,26 +74,37 @@ public class SkierServlet extends HttpServlet {
       return;
     }
 
-    LiftRideData liftRideData;
+    LiftRide liftRideBody;
     try {
       String reqBody = getRequestBody(req);
-      LiftRide liftRideBody = gson.fromJson(reqBody, LiftRide.class);
-
-      liftRideData = new LiftRideDataBuilder(liftRideBody.getLiftID(), liftRideBody.getTime())
-          .resortID(urlPathParser.getResortID())
-          .seasonID(urlPathParser.getSeasonID())
-          .dayID(urlPathParser.getDayID())
-          .skierID(urlPathParser.getSkierID())
-          .build();
-
+      liftRideBody = gson.fromJson(reqBody, LiftRide.class);
+      Validator.validateID(liftRideBody.getLiftID(), LIFT_ID_MIN, LIFT_ID_MAX);
+      Validator.validateID(liftRideBody.getTime(), TIME_MIN, TIME_MAX);
     } catch (InvalidInputsException | JsonSyntaxException e) {
       res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       res.getWriter().write(getMsgJson(MSG_INVALID_INPUTS));
       return;
     }
 
+    LiftRideData liftRideData = new LiftRideDataBuilder(liftRideBody.getLiftID(), liftRideBody.getTime())
+        .resortID(urlPathParser.getResortID())
+        .seasonID(urlPathParser.getSeasonID())
+        .dayID(urlPathParser.getDayID())
+        .skierID(urlPathParser.getSkierID())
+        .build();
+
     String liftRideJsonStr = gson.toJson(liftRideData);
-//    System.out.println("Get valid POST request: " + liftRideJsonStr);
+    System.out.println("Get valid POST request: " + liftRideJsonStr);
+
+    try (Channel channel = connection.createChannel()) {
+      channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+      channel.basicPublish("", QUEUE_NAME, null, liftRideJsonStr.getBytes());
+      System.out.println(" [x] Sent '" + liftRideJsonStr + "'");
+    } catch (TimeoutException e) {
+      res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      res.getWriter().write(getMsgJson(ERROR_MQ_TIMEOUT));
+      return;
+    }
 
     res.setStatus(HttpServletResponse.SC_CREATED);
   }
