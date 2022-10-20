@@ -1,6 +1,6 @@
 package edu.neu.cs6650.model;
 
-import static edu.neu.cs6650.Constants.*;
+import static edu.neu.cs6650.util.Constants.*;
 
 import edu.neu.cs6650.exceptions.InvalidInputsException;
 import java.util.Objects;
@@ -9,8 +9,8 @@ public class LiftRideData {
 
   private LiftRide liftRide;
   private int resortID;
-  private int seasonID;
-  private int dayID;
+  private String seasonID;
+  private String dayID;
   private int skierID;
 
   private LiftRideData(LiftRideDataBuilder builder) {
@@ -29,11 +29,11 @@ public class LiftRideData {
     return this.resortID;
   }
 
-  public int getSeasonID() {
+  public String getSeasonID() {
     return this.seasonID;
   }
 
-  public int getDayID() {
+  public String getDayID() {
     return this.dayID;
   }
 
@@ -44,8 +44,8 @@ public class LiftRideData {
   public static class LiftRideDataBuilder {
     private LiftRide liftRide;
     private int resortID;
-    private int seasonID;
-    private int dayID;
+    private String seasonID;
+    private String dayID;
     private int skierID;
 
     public LiftRideDataBuilder(int liftID, int time) throws InvalidInputsException {
@@ -57,12 +57,12 @@ public class LiftRideData {
       return this;
     }
 
-    public LiftRideDataBuilder seasonID(int seasonID) {
+    public LiftRideDataBuilder seasonID(String seasonID) {
       this.seasonID = seasonID;
       return this;
     }
 
-    public LiftRideDataBuilder dayID(int dayID) {
+    public LiftRideDataBuilder dayID(String dayID) {
       this.dayID = dayID;
       return this;
     }

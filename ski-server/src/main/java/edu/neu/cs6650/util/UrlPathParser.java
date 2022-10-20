@@ -1,6 +1,6 @@
 package edu.neu.cs6650.util;
 
-import static edu.neu.cs6650.Constants.*;
+import static edu.neu.cs6650.util.Constants.*;
 
 import edu.neu.cs6650.exceptions.InvalidUrlException;
 import edu.neu.cs6650.exceptions.MissingPathParametersException;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 public class UrlPathParser {
 
   private int resortID;
-  private int seasonID;
-  private int dayID;
+  private String seasonID;
+  private String dayID;
   private int skierID;
 
   private String method;
@@ -85,40 +85,28 @@ public class UrlPathParser {
       throw new InvalidUrlException(MSG_INVALID_PATH_PARA);
     }
 
-    this.resortID = validateID(urlParts[IDX_RESORT_ID], RESORT_ID_MIN, RESORT_ID_MAX);
-    this.seasonID = validateID(urlParts[IDX_SEASON_ID], SEASON_ID_MIN, SEASON_ID_MAX);
-    this.dayID = validateID(urlParts[IDX_DAY_ID], DAY_ID_MIN, DAY_ID_MAX);
-    this.skierID = validateID(urlParts[IDX_SKIER_ID], SKIER_ID_MIN, SKIER_ID_MAX);
-  }
-
-  private int validateID(String idStr, int idMin, int idMax)
-      throws InvalidUrlException {
-    int id;
-    try {
-      id = Integer.parseInt(idStr);
-    } catch (NumberFormatException e) {
-      throw new InvalidUrlException(MSG_INVALID_PATH_PARA);
-    }
-
-    if (id < idMin || id > idMax) {
-      throw new InvalidUrlException(MSG_INVALID_PATH_PARA);
-    }
-    return id;
+    this.resortID = Validator.validateID(urlParts[IDX_RESORT_ID], RESORT_ID_MIN, RESORT_ID_MAX);
+    this.seasonID = String.valueOf(
+        Validator.validateID(urlParts[IDX_SEASON_ID], SEASON_ID_MIN, SEASON_ID_MAX));
+    this.dayID = String.valueOf(
+        Validator.validateID(urlParts[IDX_DAY_ID], DAY_ID_MIN, DAY_ID_MAX));
+    this.skierID = Validator.validateID(urlParts[IDX_SKIER_ID], SKIER_ID_MIN, SKIER_ID_MAX);
   }
 
   public int getResortID() {
     return this.resortID;
   }
 
-  public int getSeasonID() {
+  public String getSeasonID() {
     return this.seasonID;
   }
 
-  public int getDayID() {
+  public String getDayID() {
     return this.dayID;
   }
 
   public int getSkierID() {
     return this.skierID;
   }
+
 }

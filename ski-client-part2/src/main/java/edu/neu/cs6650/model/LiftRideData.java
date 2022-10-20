@@ -61,12 +61,12 @@ public class LiftRideData {
     }
 
     public LiftRideDataBuilder seasonID(String seasonID) {
-      this.seasonID = String.valueOf(seasonID);
+      this.seasonID = seasonID;
       return this;
     }
 
     public LiftRideDataBuilder dayID(String dayID) {
-      this.dayID = String.valueOf(dayID);
+      this.dayID = dayID;
       return this;
     }
 

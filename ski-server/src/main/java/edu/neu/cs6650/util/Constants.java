@@ -1,4 +1,4 @@
-package edu.neu.cs6650;
+package edu.neu.cs6650.util;
 
 public class Constants {
 

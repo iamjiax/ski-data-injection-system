@@ -1,6 +1,6 @@
 package edu.neu.cs6650.servlet;
 
-import static edu.neu.cs6650.Constants.*;
+import static edu.neu.cs6650.util.Constants.*;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

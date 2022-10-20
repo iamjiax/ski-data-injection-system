@@ -20,8 +20,8 @@ public class SkierController {
       @PathVariable("skierID") int skierID) throws InvalidUrlException {
 
     Validator.validateID(resortID, RESORT_ID_MIN, RESORT_ID_MAX);
-    Validator.validateStrID(seasonID, SEASON_ID_MIN, SEASON_ID_MAX);
-    Validator.validateStrID(dayID, DAY_ID_MIN, DAY_ID_MAX);
+    Validator.validateID(seasonID, SEASON_ID_MIN, SEASON_ID_MAX);
+    Validator.validateID(dayID, DAY_ID_MIN, DAY_ID_MAX);
     Validator.validateID(skierID, SKIER_ID_MIN, SKIER_ID_MAX);
 
     int result = 34507;
@@ -38,8 +38,8 @@ public class SkierController {
       @RequestBody LiftRide liftRide) throws InvalidUrlException {
 
     Validator.validateID(resortID, RESORT_ID_MIN, RESORT_ID_MAX);
-    Validator.validateStrID(seasonID, SEASON_ID_MIN, SEASON_ID_MAX);
-    Validator.validateStrID(dayID, DAY_ID_MIN, DAY_ID_MAX);
+    Validator.validateID(seasonID, SEASON_ID_MIN, SEASON_ID_MAX);
+    Validator.validateID(dayID, DAY_ID_MIN, DAY_ID_MAX);
     Validator.validateID(skierID, SKIER_ID_MIN, SKIER_ID_MAX);
 
     Validator.validateID(liftRide.getLiftID(), LIFT_ID_MIN, LIFT_ID_MAX);
