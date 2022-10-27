@@ -2,11 +2,14 @@ package edu.neu.cs6650;
 
 public class Constants {
   // Paths
-  public static final String SERVER_IP = "54.189.9.41";
+  public static final String SERVER_IP = "18.236.202.10";
   public static final String SERVER_PATH = "http://" + SERVER_IP + "/ski-server_war";
   public static final String SERVER_PATH_SPRING = "http://" + SERVER_IP + "/ski-server-spring_war";
   public static final String SERVER_PATH_LOCAL = "http://localhost:8080/ski-server_war_exploded";
   public static final String SERVER_PATH_LOCAL_SPRING = "http://localhost:8080/ski-server-spring_war_exploded";
+
+  public static final String ALB_PATH ="http://alb-ski-server-302562901.us-west-2.elb.amazonaws.com/ski-server_war";
+  public static final String NLB_PATH = "http://nlb-ski-server-1d1ead9203452a63.elb.us-west-2.amazonaws.com/ski-server_war";
   // ID range
   public static final int SKIER_ID_MIN = 1;
   public static final int SKIER_ID_MAX = 100000;

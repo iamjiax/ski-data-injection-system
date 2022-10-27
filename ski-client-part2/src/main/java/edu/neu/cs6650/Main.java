@@ -35,7 +35,7 @@ public class Main {
 
     // Start thread to generate the data, and write record
     new Thread(producer).start();
-    new Thread(recorder).start();
+    new Thread(recorder).start( );
 
     long start = System.currentTimeMillis();
     // Phase 1

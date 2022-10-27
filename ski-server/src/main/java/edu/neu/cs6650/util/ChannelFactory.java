@@ -1,16 +1,12 @@
 package edu.neu.cs6650.util;
 
-import com.rabbitmq.client.impl.AMQImpl;
-import org.apache.commons.pool2.BasePooledObjectFactory;
-import org.apache.commons.pool2.DestroyMode;
-import org.apache.commons.pool2.ObjectPool;
-import org.apache.commons.pool2.PooledObject;
-import org.apache.commons.pool2.PooledObjectFactory;
-import org.apache.commons.pool2.impl.DefaultPooledObject;
-import org.apache.commons.pool2.impl.GenericObjectPool;
+import static edu.neu.cs6650.util.Constants.QUEUE_NAME;
 
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import org.apache.commons.pool2.BasePooledObjectFactory;
+import org.apache.commons.pool2.PooledObject;
+import org.apache.commons.pool2.impl.DefaultPooledObject;
 
 public class ChannelFactory extends BasePooledObjectFactory<Channel> {
 
@@ -22,7 +18,9 @@ public class ChannelFactory extends BasePooledObjectFactory<Channel> {
 
   @Override
   public Channel create() throws Exception {
-    return connection.createChannel();
+    Channel channel = connection.createChannel();
+    channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+    return channel;
   }
 
   @Override

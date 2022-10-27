@@ -34,7 +34,8 @@ public class Constants {
   public static final int TIME_MIN = 1;
   public static final int TIME_MAX = 360;
   // rabbitmq uri
-  public static final String MQ_URI = "amqp://user:user@35.92.176.183:5672";
+  public static final String MQ_URI = "amqp://user:user@54.186.25.214:5672";
+  public static final String MQ_URI_VPC_PRIVATE = "amqp://user:user@172.31.9.3:5672";
   public static final String MQ_URI_LOCAL = "amqp://guest:guest@localhost:5672";
   public static final int MAX_CHANNEL_NUM = 200;
   public static final String QUEUE_NAME = "liftRideQueue";

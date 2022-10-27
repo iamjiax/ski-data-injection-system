@@ -36,7 +36,8 @@ public class SkierServlet extends HttpServlet {
   public void init() throws ServletException {
     this.Connectionfactory = new ConnectionFactory();
     try {
-      this.Connectionfactory.setUri(MQ_URI);
+//      this.Connectionfactory.setUri(MQ_URI_LOCAL);
+      this.Connectionfactory.setUri(MQ_URI_VPC_PRIVATE);
       this.connection = this.Connectionfactory.newConnection();
       this.channelPool = new GenericObjectPool<>(new ChannelFactory(connection));
       this.channelPool.setMaxTotal(MAX_CHANNEL_NUM);
@@ -105,7 +106,6 @@ public class SkierServlet extends HttpServlet {
     Channel channel = null;
     try {
       channel = this.channelPool.borrowObject();
-      channel.queueDeclare(QUEUE_NAME, false, false, false, null);
       channel.basicPublish("", QUEUE_NAME, null, liftRideJsonStr.getBytes());
 //      System.out.println(" [x] Sent '" + liftRideJsonStr + "'");
 //      System.out.println("_________________________________");

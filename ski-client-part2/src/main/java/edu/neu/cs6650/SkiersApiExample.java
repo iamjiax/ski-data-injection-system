@@ -6,10 +6,11 @@ import edu.neu.cs6650.model.LiftRideData;
 import edu.neu.cs6650.util.LiftRideGenerator;
 import io.swagger.client.*;
 import io.swagger.client.api.SkiersApi;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SkiersApiExample {
 
-  private static final int TEST_NUM = 10000;
+  private static final int TEST_NUM = 1;
 
   public static void main(String[] args) {
 
@@ -42,5 +43,8 @@ public class SkiersApiExample {
     System.out.println("Expected throughput for 32 threads: " + throughput32 + " /s");
     int throughput200 = (int) (200 / ((float)latency / 1000));
     System.out.println("Expected throughput for 200 threads: " + throughput200 + " /s");
+
   }
+
+
 }

@@ -9,7 +9,7 @@ import io.swagger.client.api.SkiersApi;
 
 public class SkiersApiExample {
 
-  private static final int TEST_NUM = 2;
+  private static final int TEST_NUM = 2000;
 
   public static void main(String[] args) {
 
