@@ -1,28 +1,22 @@
 package edu.neu.cs6650;
 
+import static edu.neu.cs6650.Constants.*;
+
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import edu.neu.cs6650.model.LiftRideData;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import redis.clients.jedis.JedisPool;
 
 public class Main {
 
-  private final static String QUEUE_NAME = "liftRideQueue";
-  private final static int THREAD_NUM = 1;
-
   public static void main(String[] args) throws Exception {
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setUri("amqp://user:user@172.31.9.3:5672");
-//    factory.setUri("amqp://guest:guest@localhost:5672");
-    Connection connection = factory.newConnection();
+    ConnectionFactory mqFactory = new ConnectionFactory();
+    mqFactory.setUri(MQ_URI_VPC_PRIVATE);
+    Connection mqConnection = mqFactory.newConnection();
+    JedisPool jedisPool = new JedisPool(REDIS_URI_VPC_PRIVATE);
 
-    ConcurrentMap<Integer, List<LiftRideData>> liftRideDataMap = new ConcurrentHashMap<>();
-
-
+    // start consumer threads
     for (int i = 0; i < THREAD_NUM; i++) {
-      new Thread(new Consumer(connection, QUEUE_NAME, liftRideDataMap)).start();
+      new Thread(new Consumer(mqConnection, QUEUE_NAME, jedisPool)).start();
     }
 
   }

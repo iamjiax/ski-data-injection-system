@@ -109,7 +109,7 @@ public class LiftRideData {
 
   @Override
   public String toString() {
-    return "LiftRideInfo{" +
+    return "LiftRideData{" +
         "liftRide=" + liftRide +
         ", resortID=" + resortID +
         ", seasonID=" + seasonID +

@@ -7,29 +7,29 @@ import com.rabbitmq.client.DeliverCallback;
 import edu.neu.cs6650.model.LiftRideData;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentMap;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Transaction;
 
 public class Consumer implements Runnable {
 
-  private Connection connection;
-  private String queueName;
-  private ConcurrentMap<Integer, List<LiftRideData>> liftRideDataMap;
+  private final Connection mqConnection;
+  private final String queueName;
+  private final JedisPool jedisPool;
   private Gson gson;
 
-  public Consumer(Connection connection, String queueName,
-      ConcurrentMap<Integer, List<LiftRideData>> liftRideDataMap) {
-    this.connection = connection;
+  public Consumer(Connection mqConnection, String queueName,
+      JedisPool jedisPool) {
+    this.mqConnection = mqConnection;
     this.queueName = queueName;
-    this.liftRideDataMap = liftRideDataMap;
+    this.jedisPool = jedisPool;
     this.gson = new Gson();
   }
 
   @Override
   public void run() {
     try {
-      Channel channel = connection.createChannel();
+      Channel channel = mqConnection.createChannel();
       channel.queueDeclare(this.queueName, false, false, false, null);
       System.out.println(
           "[**" + Thread.currentThread().getName() + "**] Waiting for messages...");
@@ -38,9 +38,24 @@ public class Consumer implements Runnable {
         String dataJson = new String(delivery.getBody(), StandardCharsets.UTF_8);
 //        System.out.println(
 //            "[**" + Thread.currentThread().getName() + "**] Received: " + dataJson);
+
         LiftRideData data = gson.fromJson(dataJson, LiftRideData.class);
-        liftRideDataMap.putIfAbsent(data.getSkierID(), new ArrayList<>());
-        liftRideDataMap.get(data.getSkierID()).add(data);
+        String skierDayKey = data.getSkierID() + ":" + data.getSeasonID() + ":" + data.getDayID();
+        String skierSeasonKey = data.getSkierID() + ":" + data.getSeasonID();
+        String resortDaySkiersKey =
+            data.getResortID() + ":" + data.getSeasonID() + ":" + data.getDayID() + ":skiers";
+
+        try (Jedis jedis = jedisPool.getResource()) {
+          Transaction t = jedis.multi();
+          t.sadd(skierDayKey, dataJson);
+          t.sadd(skierSeasonKey, skierDayKey);
+          t.sadd(resortDaySkiersKey, String.valueOf(data.getSkierID()));
+          t.exec();
+//          System.out.println(
+//              "[**" + Thread.currentThread().getName() + "**] Wrote: " + dataJson);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
       };
 
       channel.basicConsume(this.queueName, true, deliverCallback, consumerTag -> {

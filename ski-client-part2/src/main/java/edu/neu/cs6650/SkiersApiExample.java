@@ -6,7 +6,6 @@ import edu.neu.cs6650.model.LiftRideData;
 import edu.neu.cs6650.util.LiftRideGenerator;
 import io.swagger.client.*;
 import io.swagger.client.api.SkiersApi;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SkiersApiExample {
 
@@ -15,7 +14,7 @@ public class SkiersApiExample {
   public static void main(String[] args) {
 
     ApiClient apiClient = new ApiClient();
-    apiClient.setBasePath(SERVER_PATH);
+    apiClient.setBasePath(ALB_PATH);
     SkiersApi skiersApi = new SkiersApi(apiClient);
     long start = System.currentTimeMillis();
 
@@ -23,6 +22,7 @@ public class SkiersApiExample {
       LiftRideData liftRideData = LiftRideGenerator.randomLiftRideData();
       try {
         // POST
+        System.out.println("Send: " + liftRideData);
         skiersApi.writeNewLiftRide(
             liftRideData.getLiftRide(),
             liftRideData.getResortID(),

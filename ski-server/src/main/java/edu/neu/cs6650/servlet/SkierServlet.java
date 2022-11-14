@@ -36,8 +36,8 @@ public class SkierServlet extends HttpServlet {
   public void init() throws ServletException {
     this.Connectionfactory = new ConnectionFactory();
     try {
-//      this.Connectionfactory.setUri(MQ_URI_LOCAL);
-      this.Connectionfactory.setUri(MQ_URI_VPC_PRIVATE);
+      this.Connectionfactory.setUri(MQ_URI_LOCAL);
+//      this.Connectionfactory.setUri(MQ_URI_VPC_PRIVATE);
       this.connection = this.Connectionfactory.newConnection();
       this.channelPool = new GenericObjectPool<>(new ChannelFactory(connection));
       this.channelPool.setMaxTotal(MAX_CHANNEL_NUM);
