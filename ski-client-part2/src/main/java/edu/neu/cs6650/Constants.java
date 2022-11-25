@@ -7,7 +7,7 @@ public class Constants {
   public static final String SERVER_PATH_SPRING = "http://" + SERVER_IP + "/ski-server-spring_war";
   public static final String SERVER_PATH_LOCAL = "http://localhost:8080/ski-server_war_exploded";
   public static final String SERVER_PATH_LOCAL_SPRING = "http://localhost:8080/ski-server-spring_war_exploded";
-  public static final String ALB_PATH = "http://alb-a3-1819844760.us-west-2.elb.amazonaws.com/ski-server_war";
+  public static final String ALB_PATH = "http://alb-ski-569101682.us-west-2.elb.amazonaws.com/ski-server_war";
   public static final String NLB_PATH = "http://nlb-ski-server-a0bed5d842dabd0b.elb.us-west-2.amazonaws.com/ski-server_war";
   public static final String POST = "POST";
   // ID range

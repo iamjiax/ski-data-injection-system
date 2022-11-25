@@ -38,6 +38,23 @@ public class LiftRideData {
     return this.skierID;
   }
 
+  public String getSkierDayKey() {
+    return "skierID:" + this.getSkierID() + ":"
+        + "seasonID:" + this.getSeasonID() + ":"
+        + "dayID:" + this.getDayID();
+  }
+
+  public String getSkierSeasonKey() {
+    return "skierID:" + this.getSkierID() + ":"
+        + "seasonID:" + this.getSeasonID();
+  }
+
+  public String getResortDaySkiersKey() {
+    return "resortID:" + this.getResortID() + ":"
+        + "seasonID:" + this.getSeasonID() + ":"
+        + "dayID:" + this.getDayID() + ":skiers";
+  }
+
   public static class LiftRideDataBuilder {
 
     private LiftRide liftRide;

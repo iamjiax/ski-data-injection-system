@@ -40,16 +40,12 @@ public class Consumer implements Runnable {
 //            "[**" + Thread.currentThread().getName() + "**] Received: " + dataJson);
 
         LiftRideData data = gson.fromJson(dataJson, LiftRideData.class);
-        String skierDayKey = data.getSkierID() + ":" + data.getSeasonID() + ":" + data.getDayID();
-        String skierSeasonKey = data.getSkierID() + ":" + data.getSeasonID();
-        String resortDaySkiersKey =
-            data.getResortID() + ":" + data.getSeasonID() + ":" + data.getDayID() + ":skiers";
 
         try (Jedis jedis = jedisPool.getResource()) {
           Transaction t = jedis.multi();
-          t.sadd(skierDayKey, dataJson);
-          t.sadd(skierSeasonKey, skierDayKey);
-          t.sadd(resortDaySkiersKey, String.valueOf(data.getSkierID()));
+          t.sadd(data.getSkierDayKey(), dataJson);
+          t.sadd(data.getSkierSeasonKey(), data.getSkierDayKey());
+          t.sadd(data.getResortDaySkiersKey(), String.valueOf(data.getSkierID()));
           t.exec();
 //          System.out.println(
 //              "[**" + Thread.currentThread().getName() + "**] Wrote: " + dataJson);
