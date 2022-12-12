@@ -30,7 +30,7 @@ public class Constants {
   public static final int SEASON_ID_MIN = 2022;
   public static final int SEASON_ID_MAX = 2022;
   public static final int DAY_ID_MIN = 1;
-  public static final int DAY_ID_MAX = 1;
+  public static final int DAY_ID_MAX = 3;
   public static final int TIME_MIN = 1;
   public static final int TIME_MAX = 360;
   // rabbitmq uri
@@ -42,4 +42,11 @@ public class Constants {
 
   public static final String ERROR_MQ_CONNECTION = "Error connecting to rabbitmq broker";
   public static final String ERROR_MQ_TIMEOUT = "Error connecting to rabbitmq broker";
+
+  // redis uri
+  public static final String REDIS_URI = "redis://default:password@52.25.159.144:6379";
+  public static final String REDIS_URI_VPC_PRIVATE = "redis://default:password@172.31.7.71:6379";
+  public static final String REDIS_URI_LOCAL = "redis://default:password@localhost:6379";
+
+  public static final String ERROR_REDIS = "Error connecting to REDIS";
 }

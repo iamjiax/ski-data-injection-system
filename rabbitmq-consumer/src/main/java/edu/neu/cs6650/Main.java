@@ -10,9 +10,9 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     ConnectionFactory mqFactory = new ConnectionFactory();
-    mqFactory.setUri(MQ_URI_VPC_PRIVATE);
+    mqFactory.setUri(MQ_URI_LOCAL);
     Connection mqConnection = mqFactory.newConnection();
-    JedisPool jedisPool = new JedisPool(REDIS_URI_VPC_PRIVATE);
+    JedisPool jedisPool = new JedisPool(REDIS_URI_LOCAL);
 
     // start consumer threads
     for (int i = 0; i < THREAD_NUM; i++) {

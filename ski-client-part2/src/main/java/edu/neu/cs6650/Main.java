@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main {
 
   public static void main(String[] args) throws InterruptedException {
-    String serverPath = ALB_PATH;
+    String serverPath = SERVER_PATH_LOCAL;
 
     BlockingQueue<LiftRideData> producerQueue = new LinkedBlockingQueue<>(PQ_CAPACITY);
     BlockingQueue<RecordData> recordQueue = new LinkedBlockingQueue<>(RQ_CAPACITY);

@@ -25,7 +25,7 @@ public class Constants {
   public static final int TOTAL_COUNT = 200000;
   public static final int P1_THREAD_NUM = 32;
   public static final int P1_CNT_PER_THREAD = 1000;
-  public static final int P2_THREAD_NUM = 400;
+  public static final int P2_THREAD_NUM = 100;
   public static final int PQ_CAPACITY = 200000;
   public static final int RQ_CAPACITY = 200000;
 

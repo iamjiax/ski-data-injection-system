@@ -2,6 +2,7 @@ package edu.neu.cs6650.servlet;
 
 import static edu.neu.cs6650.util.Constants.*;
 
+import edu.neu.cs6650.database.RedisClient;
 import java.util.stream.Collectors;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -28,7 +29,7 @@ public class SkierServlet extends HttpServlet {
   private ConnectionFactory Connectionfactory;
   private Connection connection;
   private GenericObjectPool<Channel> channelPool;
-
+  private RedisClient redisClient;
   private Gson gson;
 
 
@@ -44,6 +45,8 @@ public class SkierServlet extends HttpServlet {
     } catch (Exception e) {
       throw new ServletException(ERROR_MQ_CONNECTION, e);
     }
+
+    this.redisClient = new RedisClient(REDIS_URI_LOCAL);
     this.gson = new Gson();
   }
 
@@ -61,9 +64,28 @@ public class SkierServlet extends HttpServlet {
       return;
     }
 
-    int result = 34507;
+    String vertical = null;
+    if (urlPathParser.isVerticalUrl()) {
+      vertical = this.redisClient.getTotalVertical(
+          String.valueOf(urlPathParser.getSkierID()),
+          String.valueOf(urlPathParser.getResortID()),
+          urlPathParser.getSeasonID());
+    } else if (urlPathParser.isLongUrl()) {
+      vertical = this.redisClient.getTotalVerticalForSomeDay(
+          String.valueOf(urlPathParser.getResortID()),
+          urlPathParser.getSeasonID(),
+          urlPathParser.getDayID(),
+          String.valueOf(urlPathParser.getSkierID())
+      );
+    }
+
+    if (vertical == null) {
+      res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      res.getWriter().write(getMsgJson(ERROR_REDIS));
+      return;
+    }
     res.setStatus(HttpServletResponse.SC_OK);
-    res.getWriter().write(gson.toJson(result));
+    res.getWriter().write(gson.toJson(vertical));
   }
 
 
