@@ -14,7 +14,7 @@ public class SkiersApiExample {
   public static void main(String[] args) {
 
     ApiClient apiClient = new ApiClient();
-    apiClient.setBasePath(ALB_PATH);
+    apiClient.setBasePath(SERVER_PATH);
     SkiersApi skiersApi = new SkiersApi(apiClient);
     long start = System.currentTimeMillis();
 

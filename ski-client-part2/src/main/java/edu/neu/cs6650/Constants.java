@@ -2,7 +2,7 @@ package edu.neu.cs6650;
 
 public class Constants {
   // Paths
-  public static final String SERVER_IP = "35.89.60.137";
+  public static final String SERVER_IP = "34.221.190.163";
   public static final String SERVER_PATH = "http://" + SERVER_IP + "/ski-server_war";
   public static final String SERVER_PATH_SPRING = "http://" + SERVER_IP + "/ski-server-spring_war";
   public static final String SERVER_PATH_LOCAL = "http://localhost:8080/ski-server_war_exploded";

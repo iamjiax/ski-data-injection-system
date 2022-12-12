@@ -26,7 +26,7 @@ public class ResortServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    this.redisClient = new RedisClient(REDIS_URI_LOCAL);
+    this.redisClient = new RedisClient(REDIS_URI_VPC_PRIVATE);
     this.gson = new Gson();
 
     this.cache = Caffeine.newBuilder()
