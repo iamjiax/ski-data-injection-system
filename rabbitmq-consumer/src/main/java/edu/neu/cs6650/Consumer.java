@@ -43,9 +43,23 @@ public class Consumer implements Runnable {
 
         try (Jedis jedis = jedisPool.getResource()) {
           Transaction t = jedis.multi();
-          t.sadd(data.getSkierDayKey(), dataJson);
-          t.sadd(data.getSkierSeasonKey(), data.getSkierDayKey());
-          t.sadd(data.getResortDaySkiersKey(), String.valueOf(data.getSkierID()));
+
+          // For GET request: /resorts/{resortID}/seasons/{seasonID}/day/{dayID}/skiers
+          // Schema: resort_season_day:<resortID>_<seasonID>_<dayID>:skiersSet
+          t.sadd("resort_season_day:" + data.getResortID() + "_" + data.getSeasonID() + "_" + data.getDayID() + ":skiersSet", Integer.toString(data.getSkierID()));
+
+          // For GET request: /skiers/{resortID}/seasons/{seasonID}/days/{dayID}/skiers/{skierID}
+          // Schema: resort_season_day_skier:<resortID>_<seasonID>_<dayID>_<skierID>:totalVertical
+          t.incrBy("resort_season_day_skier:" + data.getResortID() + "_" + data.getSeasonID() + "_" + data.getDayID() + "_" + data.getSkierID() + ":totalVertical", (long) data.getLiftRide().getLiftID() * 10);
+
+          // For GET request: /skiers/{skierID}/vertical?resort=<resortID>&season=<seasonID>
+          // Schema: skier_resort_season:<skierID>_<resortID>_<seasonID>:totalVertical
+          t.incrBy("skier_resort_season:" + data.getSkierID() + "_" + data.getResortID() + "_" + data.getSeasonID() + ":totalVertical", (long) data.getLiftRide().getLiftID() * 10);
+
+          // For GET request: /skiers/{skierID}/vertical?resort=<resortID>
+          // Schema: skier_resort:<skierID>_<resortID>:totalVertical
+          t.incrBy("skier_resort:" + data.getSkierID() + "_" + data.getResortID() + ":totalVertical", (long) data.getLiftRide().getLiftID() * 10);
+
           t.exec();
 //          System.out.println(
 //              "[**" + Thread.currentThread().getName() + "**] Wrote: " + dataJson);
