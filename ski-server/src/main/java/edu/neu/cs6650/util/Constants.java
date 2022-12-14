@@ -44,7 +44,7 @@ public class Constants {
   public static final String ERROR_MQ_TIMEOUT = "Error connecting to rabbitmq broker";
 
   // redis uri
-  public static final String REDIS_URI = "redis://default:password@35.89.202.141:6379";
+  public static final String REDIS_URI = "redis://default:password@35.90.107.156:6379";
   public static final String REDIS_URI_VPC_PRIVATE = "redis://default:password@172.31.7.71:6379";
   public static final String REDIS_URI_LOCAL = "redis://default:password@localhost:6379";
 

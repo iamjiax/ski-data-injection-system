@@ -8,7 +8,7 @@ public class JedisTest {
 
   public static void main(String[] args) {
     Jedis jedis = new Jedis(REDIS_URI);
-    jedis.flushDB();
+//    jedis.flushDB();
     System.out.println(jedis.ping());
   }
 }

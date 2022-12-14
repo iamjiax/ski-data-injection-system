@@ -18,7 +18,8 @@ public class RedisClient {
       String queryKey =
           "resort_season_day_skier:" + resortId + "_" + seasonId + "_" + dayId + "_" + skierId
               + ":totalVertical";
-      return jedis.get(queryKey);
+      String result =  jedis.get(queryKey);
+      return result == null? "0": result;
     } catch (Exception e) {
       e.printStackTrace();
     }
