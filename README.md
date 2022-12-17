@@ -1,2 +1,1 @@
-# cs6650
-Assignments repo for CS6650
+# Ski Data Injection System
